@@ -17,6 +17,8 @@ public class Student {
     private String email;
     private int rollNo;
     private String subject;
+    private Boolean deleted;
+
 
     public Long getId() {
         return id;
@@ -64,5 +66,13 @@ public class Student {
 
     public void setSubject(String subject) {
         this.subject = subject;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 }

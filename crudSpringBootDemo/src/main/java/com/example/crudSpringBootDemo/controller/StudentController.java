@@ -21,18 +21,15 @@ public class StudentController {
 //createStudent
     @PostMapping("/create")
     public ResponseEntity<Student> createStudent(@RequestBody Student student){
-//        System.out.println(student.getAge());
-//        System.out.println(student.getEmail());
 
-//        System.out.println("Inside Student Controller.");
        Student createdStudent =  studentService.createStudent(student);
-//        System.out.println("Exiting Student Controller.");
+
        return  ResponseEntity.status(HttpStatus.CREATED).body(createdStudent);
     }
 
 //    read one student
-    @GetMapping("/get/{id}")
-    public ResponseEntity<Student> getStudent(@PathVariable Long id){
+    @GetMapping("/get")
+    public ResponseEntity<Student> getStudent(@RequestParam Long id){
     Student studentResp = studentService.getStudent(id);
 
     if(studentResp == null){
@@ -53,8 +50,8 @@ public class StudentController {
     }
 
 //    update
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Student> updateStudent(@PathVariable Long id, @RequestBody Student studentReq){
+    @PutMapping("/update")
+    public ResponseEntity<Student> updateStudent(@RequestParam Long id, @RequestBody Student studentReq){
 
      Student studentResp =  studentService.updateStudent(id,studentReq);
 
@@ -74,6 +71,17 @@ public class StudentController {
      }
 
      return ResponseEntity.ok("Record Deleted");
+    }
+
+    @PatchMapping("/delete-soft/{id}")
+    public ResponseEntity<String> deleteStudentSoftly(@PathVariable Long id){
+     Boolean isDeleted = studentService.deleteStudentSoftly(id);
+
+     if(!isDeleted){
+         return ResponseEntity.notFound().build();
+     }
+
+     return ResponseEntity.ok("Record Deleted Successfully.");
     }
 
 }
